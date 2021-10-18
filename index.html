@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Lottery Simulator</title>
+	<link rel="stylesheet" href="style.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Actor&family=Luckiest+Guy&display=swap" rel="stylesheet">
+</head>
+
+<body>
+	<div class="title" id="titleBox">
+		<h1 class="title1">Lucky for Life</h1>
+		<h1 class="title2">💸 Lottery Simulator 💸</h1>
+	</div>
+
+	<div class="lott_num" id="lott_num_ID">
+		<h2 class="real_num_title" id="real_num_ID" >Today's winning numbers: # # # # # </h2>
+		<h2 class="your_num_title" id="your_num_ID">Your random lottery numbers: # # # # #</h2>
+	</div>
+
+	<div class="luck_ball" id="luck_ball_ID">
+		<h2 class="real_luck_title" id="real_luck_ID" >Today's lucky ball number: # </h2>
+		<h2 class="your_luck_title" id="your_luck_ID">Your random lucky ball number: # </h2>
+	</div>
+
+	<h2 class="chances_title" id="chances_ID">Your chances of winning are..</h2>
+
+	<script language="javascript">
+		// 1. get today's 5 winning numbers
+		// 2. then get the lucky ball number
+		var fiveNumbers = prompt("Pick today's 5 winning numbers. ", "");
+		var luckyBallNum = prompt("Pick today's lucky ball number. ", "");
+
+		var arr_fiveNumbers = fiveNumbers.split("");
+		arr_fiveNumbers.sort();
+
+
+	 	document.getElementById("real_num_ID").innerHTML = "Today's winning numbers: " + fiveNumbers;
+		document.getElementById("real_luck_ID").innerHTML = "Today's lucky ball number: " + luckyBallNum;
+
+		// 3. do math.random() to get your lottery numbers
+		// from 1 - 48
+		var winFive_1 = Math.floor(Math.random() * 47 + 1);
+		var winFive_2 = Math.floor(Math.random() * 47 + 1);
+		var winFive_3 = Math.floor(Math.random() * 47 + 1);
+		var winFive_4 = Math.floor(Math.random() * 47 + 1);
+		var winFive_5 = Math.floor(Math.random() * 47 + 1);
+		// from 1 to 18
+		var winLuckyBall = Math.floor(Math.random() * 17 + 1);
+
+		//4. push the playing numbrers into an array
+		var all_winFive = [];
+		all_winFive.push(winFive_1, winFive_2, winFive_3, winFive_4, winFive_5);
+		all_winFive.sort();
+		all_winFive.join(',');
+
+		// 5. display on page
+		document.getElementById("your_num_ID").innerHTML = "Your random lottery numbers: " + all_winFive;
+		document.getElementById("your_luck_ID").innerHTML = "Your random lucky ball number: " + winLuckyBall;
+
+		// 6. see if the user won.
+		function win_lotto_check()
+		{
+			var count = 0;
+			for (var i = 0; i < all_winFive.length; i++) {
+				if (arr_fiveNumbers.includes(all_winFive[i])) {
+					count++;
+				}
+			}
+
+			if (count == 5 && winLuckyBall == luckyBallNum) {
+				document.getElementById("chances_ID").innerHTML = "You won $7,000 a WEEK for LIFE! </br> These chances are 1 in 30,821,472." ;
+			}
+			else if (count == 5 && winLuckyBall != luckyBallNum) {
+				document.getElementById("chances_ID").innerHTML = "You won $25,000 a YEAR for LIFE! </br> These chances are 1 in 1,813,027." ;
+			}
+			else if (count == 4 && winLuckyBall == luckyBallNum) {
+				document.getElementById("chances_ID").innerHTML = "You won $5,000! </br> These chances are 1 in 143,355." ;
+			}
+			else if (count == 4 && winLuckyBall != luckyBallNum) {
+				document.getElementById("chances_ID").innerHTML = "You won $200! </br> These chances are 1 in 8,432." ;
+			}
+			else if (count == 3 && winLuckyBall == luckyBallNum) {
+				document.getElementById("chances_ID").innerHTML = "You won $150! </br> These chances are 1 in 3,413." ;
+			}
+			else if (count == 3 && winLuckyBall != luckyBallNum) {
+				document.getElementById("chances_ID").innerHTML = "You won $20! </br> These chances are 1 in 200." ;
+			}
+			else if (count == 2 && winLuckyBall == luckyBallNum) {
+				document.getElementById("chances_ID").innerHTML = "You won $25! </br> These chances are 1 in 249." ;
+			}
+			else if (count == 2 && winLuckyBall != luckyBallNum) {
+				document.getElementById("chances_ID").innerHTML = "You won $3! </br> These chances are 1 in 14." ;
+			}
+			else if (count == 1 && winLuckyBall == luckyBallNum) {
+				document.getElementById("chances_ID").innerHTML = "You won $6! </br> These chances are 1 in 49." ;
+			}
+			else if (winLuckyBall == luckyBallNum && count == 0) {
+				document.getElementById("chances_ID").innerHTML = "You won $4! </br> These chances are 1 in 32." ;
+			}
+			else {
+				document.getElementById("chances_ID").innerHTML = "You did not win the lottery :( Play again soon!" ;
+			}
+		}
+
+		win_lotto_check();
+
+	</script>
+
+</body>
